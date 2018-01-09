@@ -3,31 +3,38 @@ version: '3'
 services:
   
   hub:
-    image: selenium/hub:3.0.1-germanium
+    image: selenium/hub:3.8.1-chlorine
+    environment:
+      - JAVA_OPTS=-Xmx4G
+      - LOGSPOUT=ignore
+      - shm_size=512MB
+      - DBUS_SESSION_BUS_ADDRESS=/dev/null
+      - NODE_MAX_INSTANCE=5
+      - NODE_MAX_SESSION=5
     expose:
       - 4444
     networks:
       - selenium-grid
 
   chrome:
-    image: selenium/node-chrome-debug:3.0.1-germanium
+    image: selenium/node-chrome:3.8.1-chlorine
+    volumes:
+      - /dev/shm:/dev/shm
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    ports:
-      - 5900:5900
     depends_on:
       - hub
     networks:
       - selenium-grid
 
   firefox:
-    image: selenium/node-firefox-debug:3.0.1-germanium
+    image: selenium/node-firefox:3.8.1-chlorine
+    volumes:
+      - /dev/shm:/dev/shm
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    ports:
-      - 5901:5900
     depends_on:
       - hub
     networks:
@@ -35,10 +42,10 @@ services:
 
   test-gc:
     build: robot
-    command: -v BROWSER:gc --outputdir /out /tests
+    command: -v BROWSER:gc -d /out /tests/
     volumes:
-      - ./robot:/tests:ro
-      - ./results/gc:/out:rw
+      - ./robot/tests_robot:/tests
+      - ./results/gc:/out
     depends_on:
       - chrome
     networks:
@@ -46,10 +53,10 @@ services:
 
   test-ff:
     build: robot
-    command: -v BROWSER:ff --outputdir /out /tests
+    command: -v BROWSER:ff -d /out /tests/
     volumes:
-      - ./robot:/tests:ro
-      - ./results/ff:/out:rw
+      - ./robot/tests_robot:/tests
+      - ./results/ff:/out
     depends_on:
       - firefox
     networks:
