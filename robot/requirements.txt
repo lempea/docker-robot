@@ -1,5 +1,0 @@
-robotframework
-selenium
-robotframework-selenium2library
-robotframework-imaplibrary
-robotframework-xvfb

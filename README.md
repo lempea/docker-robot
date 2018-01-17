@@ -1,31 +1,18 @@
-## Running robotframework tests using docker and selenium hub
+## Lempea Robot Image 
 
 **Prerequisites**
 
 - [Docker](https://docs.docker.com/engine/installation/)
 - [Docker-compose](https://docs.docker.com/compose/install/)
 
-**Starting point**
+**Dockerhub**
 
-- Clone this repository
-- Copy all the tests and test related files at location robot/tests
+Image is on Dockerhub  
 
-**Build the containers:**
+use v2.0 as  
+
+```ruby
+
+docker pull lempea/robot:v2.0
 
 ```
-docker-compose up --build -d
-```
-
-**Robot Framework Tests with browsers:**
-```
-docker-compose run test-ff
-docker-compose run test-gc
-```
-**Cleanup**
-
-docker-compose down
-
-**Reports:**  
-The test results will be in the results folder
-
-
