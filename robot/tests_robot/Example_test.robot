@@ -15,7 +15,7 @@ ${URL}               https://google.com
 *** Test Cases ***
 
 Connect to google site
-
+  Start Virtual Display    1920    1080
   Open Browser         url=${URL}      browser=${BROWSER}    remote_url=${SELENIUM_REMOTE_URL}
   title should be       Google
   [Teardown]
