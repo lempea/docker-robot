@@ -17,7 +17,7 @@ ${URL}               https://google.com
 Connect to google site
 
   Open Browser         url=${URL}      browser=${BROWSER}    remote_url=${SELENIUM_REMOTE_URL}
-  title should be       google
+  title should be       Google
   [Teardown]
 
 # *** Keywords ***
